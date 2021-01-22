@@ -1,8 +1,5 @@
 node_modules
 elm-stuff
-
-# Local Netlify folder
 .netlify
 index.html
 functions/elm-functions/generated.d.ts
-
