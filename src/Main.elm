@@ -88,5 +88,5 @@ viewGreeting model =
 
 getGreeting : Cmd Msg
 getGreeting =
-    NetlifyRequest.hello { code = "Dillon" }
+    NetlifyRequest.hello { name = "Dillon" }
         |> Cmd.map GotGreeting

@@ -6,13 +6,13 @@ import TsInterop.Encode as TsEncode exposing (required)
 
 
 hello :
-    { input : TsEncode.Encoder { code : String }
+    { input : TsEncode.Encoder { name : String }
     , output : TsDecode.Decoder String
     }
 hello =
     { input =
         TsEncode.object
-            [ required "name" .code TsEncode.string
+            [ required "name" .name TsEncode.string
             ]
     , output =
         TsDecode.field "message" TsDecode.string
