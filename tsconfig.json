@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "lib": ["dom", "es2020"],
+    "allowJs": true,
+    "checkJs": true, // This will give you TypeScript errors in your JS files - works nicely with VS Code - https://www.typescriptlang.org/tsconfig#checkJs
+    "noImplicitReturns": true,
+    "allowUmdGlobalAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "target": "ES2020",
+    "baseUrl": ".",
+  },
+}
