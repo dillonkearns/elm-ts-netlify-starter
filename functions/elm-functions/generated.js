@@ -20,7 +20,7 @@ async function handle(handlers, event, context) {
   const msg = event.queryStringParameters?.msg;
   const parsedEvent = {
     ...event,
-    body: event.body && JSON.stringify(event.body),
+    body: event.body && JSON.parse(event.body),
   };
   /** @type {import("./generated").MsgHandler<any, unknown> | null} */
   const msgHandler = msg && handlers[msg];
