@@ -13,5 +13,7 @@
     "noUncheckedIndexedAccess": true,
     "target": "ES2020",
     "baseUrl": ".",
+    
   },
+  "include": ["functions/**/*"]
 }

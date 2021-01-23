@@ -4,10 +4,14 @@
  */
 module.exports = { getHandler };
 
-function getHandler(handlers) {
-  return (event, context) => {
-    return handle(handlers, event, context);
-  };
+/**
+ * @param {import("./generated").MsgHandlers} handlers
+ * @returns {(event: AWSLambda.APIGatewayProxyEvent, context: unknown) => Promise<AWSLambda.APIGatewayProxyStructuredResultV2>}
+
+ */
+function getHandler(handlers) 
+ {
+  return ( (event, context) => handle(handlers, event, context))
 }
 
 /**
@@ -23,7 +27,7 @@ async function handle(handlers, event, context) {
     body: event.body && JSON.parse(event.body),
   };
   /** @type {import("./generated").MsgHandler<any, unknown> | null} */
-  const msgHandler = msg && handlers[msg];
+  const msgHandler = msg && msg in handlers && handlers[msg];
   if (msgHandler) {
     const rawResponse = await msgHandler(parsedEvent);
     return responseToJson(rawResponse);
