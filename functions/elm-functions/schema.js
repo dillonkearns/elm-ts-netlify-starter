@@ -18,8 +18,8 @@ module.exports = {
                 message: {
                     type: 'string'
                     }
-            }
-
+            },
+            required: ['message']
         }
 
     }

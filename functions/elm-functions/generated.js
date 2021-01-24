@@ -39,7 +39,7 @@ async function handle(handlers, event, context) {
         body: parsedEventBody,
       };
       const rawResponse = await msgHandler(validatedEvent);
-      return responseToJson(rawResponse);
+      return responseToJson(ajv.compile(msgValidator.response), rawResponse);
     } else {
       return {
         statusCode: 422,
@@ -62,11 +62,27 @@ async function handle(handlers, event, context) {
 /**
  * @param {import("./generated").Response<unknown>} response
  * @returns {import("./generated").APIGatewayProxyStructuredResultV2}
+ * @param {import("ajv").ValidateFunction<unknown>} validateResponse
  */
-function responseToJson(response) {
-  const headers = {
-    ...(response.headers || {}),
-    "Content-Type": "application/json",
-  };
-  return { ...response, headers, body: JSON.stringify(response.body) };
+function responseToJson(validateResponse, response) {
+  const responseBody = response.body
+  const validatedResponseBody = validateResponse(responseBody)
+  console.log({validatedResponseBody, parsedResponseBody: responseBody});
+  if (validatedResponseBody) {
+    const headers = {
+      ...(response.headers || {}),
+      "Content-Type": "application/json",
+    };
+    return { ...response, headers, body: JSON.stringify(responseBody) };
+  } else {
+
+
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({errorMessage: validateResponse.errors})
+      }
+  }
 }
