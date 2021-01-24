@@ -6,7 +6,7 @@
   "scripts": {
     "start": "elm-live src/Main.elm",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "../elm-ts-interop-pro/src/netlify-interop.js src/NetlifyFunctions.elm --output functions/elm-functions/generated.d.ts && elm make src/Main.elm"
+    "build": "../elm-ts-interop-pro/src/netlify-interop.js src/NetlifyFunctions.elm --output functions/elm-functions/generated.d.ts && elm make src/Main.elm && tsc"
   },
   "keywords": [],
   "author": "",

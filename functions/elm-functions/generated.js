@@ -27,9 +27,28 @@ function getHandler(handlers)
 async function handle(handlers, event, context) {
   const msg = event.queryStringParameters?.msg;
   const parsedEventBody = event.body && JSON.parse(event.body)
+  if (!msg) {
+    return {
+        statusCode: 400,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({errorMessage: "I expected a query parameter named 'msg'."})
+    }
+  }
   /** @type {import("./generated").MsgHandler<any, unknown> | null} */
+  // @ts-ignore
   const msgHandler = msg && msg in handlers && handlers[msg];
   const msgValidator = msg && msg in validators && validators[msg]
+  if (!msgValidator) {
+    return {
+        statusCode: 404,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({errorMessage: `Function for msg '${msg}' not found.`})
+    }
+  }
   if (msgHandler) {
     const validateRequest = ajv.compile(msgValidator.request)
     const validatedEventBody = validateRequest(parsedEventBody)
@@ -38,6 +57,7 @@ async function handle(handlers, event, context) {
         ...event,
         body: parsedEventBody,
       };
+      // @ts-ignore
       const rawResponse = await msgHandler(validatedEvent);
       return responseToJson(ajv.compile(msgValidator.response), rawResponse);
     } else {
