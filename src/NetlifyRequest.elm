@@ -6,28 +6,28 @@ import TsInterop.Decode as TsDecode
 import TsInterop.Encode as TsEncode
 
 
-hello input =
+hello request =
     Http.post
         { url = "/.netlify/functions/elm-functions?msg=hello"
         , body =
-            input
-                |> TsEncode.encoder NetlifyFunctions.hello.input
+            request
+                |> TsEncode.encoder NetlifyFunctions.hello.request
                 |> Http.jsonBody
         , expect =
-            NetlifyFunctions.hello.output
+            NetlifyFunctions.hello.response
                 |> TsDecode.decoder
                 |> Http.expectJson identity
         }
 
-weather input =
+weather request =
     Http.post
         { url = "/.netlify/functions/elm-functions?msg=weather"
         , body =
-            input
-                |> TsEncode.encoder NetlifyFunctions.weather.input
+            request
+                |> TsEncode.encoder NetlifyFunctions.weather.request
                 |> Http.jsonBody
         , expect =
-            NetlifyFunctions.weather.output
+            NetlifyFunctions.weather.response
                 |> TsDecode.decoder
                 |> Http.expectJson identity
         }

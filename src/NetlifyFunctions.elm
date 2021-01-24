@@ -6,29 +6,29 @@ import TsInterop.Encode as TsEncode exposing (required)
 
 
 hello :
-    { input : TsEncode.Encoder { name : String }
-    , output : TsDecode.Decoder String
+    { request : TsEncode.Encoder { name : String }
+    , response : TsDecode.Decoder String
     }
 hello =
-    { input =
+    { request =
         TsEncode.object
             [ required "name" .name TsEncode.string
             ]
-    , output =
+    , response =
         TsDecode.field "message" TsDecode.string
     }
 
 
 weather :
-    { input : TsEncode.Encoder { unit : TemperatureUnit }
-    , output : TsDecode.Decoder Int
+    { request : TsEncode.Encoder { unit : TemperatureUnit }
+    , response : TsDecode.Decoder Int
     }
 weather =
-    { input =
+    { request =
         TsEncode.object
             [ required "unit" .unit unitEncoder
             ]
-    , output =
+    , response =
         TsDecode.field "degrees" TsDecode.int
     }
 
@@ -55,6 +55,6 @@ unitEncoder =
 
 
 type alias LambdaDefinition requestInput responseOutput =
-    { input : TsEncode.Encoder requestInput
-    , output : TsDecode.Decoder responseOutput
+    { request : TsEncode.Encoder requestInput
+    , response : TsDecode.Decoder responseOutput
     }
