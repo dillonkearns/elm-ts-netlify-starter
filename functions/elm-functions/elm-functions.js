@@ -1,5 +1,3 @@
-// @ts-check
-
 const { getHandler } = require("./generated.js");
 
 /** @type {import("./generated").MsgHandlers} */
