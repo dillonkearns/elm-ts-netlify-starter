@@ -1,5 +1,5 @@
 const Ajv = require("ajv").default;
-const ajv = new Ajv();
+const ajv = new Ajv({ removeAdditional: 'all' });
 const validators = require('./schema.js')
 
 /**
