@@ -1,8 +1,8 @@
 module NetlifyFunctions exposing (..)
 
 import Json.Encode as JE
-import TsInterop.Decode as TsDecode
-import TsInterop.Encode as TsEncode exposing (required)
+import TsJson.Decode as TsDecode
+import TsJson.Encode as TsEncode exposing (required)
 
 
 hello :

@@ -2,8 +2,8 @@ module NetlifyRequest exposing (hello, weather)
 
 import Http
 import NetlifyFunctions
-import TsInterop.Decode as TsDecode
-import TsInterop.Encode as TsEncode
+import TsJson.Decode as TsDecode
+import TsJson.Encode as TsEncode
 
 
 hello request =

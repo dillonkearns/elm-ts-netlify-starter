@@ -3,6 +3,7 @@
 /** @type {{ [key: string]: { request: JsonSchema; response: JsonSchema; }}} */
 module.exports = {
   "hello": {"request":{
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "name": {
@@ -13,6 +14,7 @@ module.exports = {
     "name"
   ]
 },"response":{
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "message": {
@@ -24,14 +26,25 @@ module.exports = {
   ]
 }},
   "weather": {"request":{
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "unit": "unhandled"
+    "unit": {
+      "anyOf": [
+        {
+          "const": "C"
+        },
+        {
+          "const": "F"
+        }
+      ]
+    }
   },
   "required": [
     "unit"
   ]
 },"response":{
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "degrees": {
